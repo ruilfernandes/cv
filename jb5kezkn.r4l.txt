@@ -1,0 +1,25 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch gh-pages
+# Your branch is up-to-date with 'origin/gh-pages'.
+#
+# Changes to be committed:
+#	new file:   css/main.css
+#	new file:   img/Foto.jpg
+#	new file:   img/contruction.gif
+#	new file:   img/eduph1.jpg
+#	new file:   img/feup.gif
+#	new file:   img/home.jpg
+#	new file:   img/home2.jpg
+#	new file:   img/mota.jpg
+#	new file:   img/p.png
+#	new file:   img/rielza.jpg
+#	new file:   img/rui-foto.jpg
+#	new file:   img/work.jpg
+#	new file:   img/work2.jpg
+#	new file:   img/work3.jpg
+#
+
+commit update
+
