@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rui Fernandes - Portfolio Selection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-base: #0A192F;
+            --accent-teal: #16a2b1;
+            --secondary-base: #F8F9FA;
+            --text-dark: #333333;
+            --accent-orange: #c5892e;
+            --white: #ffffff;
+        }
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(100%); /* black & white */
+            animation: fadeInDown 0.8s ease 0.2s backwards;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-base);
+            padding: 2rem;
+        }
+
+        body::before{
+            content: "";
+            position: absolute;
+            inset: 0; /* top:0, right:0, bottom:0, left:0 */
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">><path d="M0 60 Q 25 40 50 60 T 100 60" stroke="%23ffffff" stroke-width="15" fill="none" opacity="0.06"/></svg>');
+            /*background-size: 200px 200px; /* adjust tile scale */
+            opacity: 0.4; /* let your SVG control the transparency */
+            pointer-events: none; /* click-through */
+            z-index: 0;
+        }
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M100 0 Q 60 50 40 25 T 60 100" stroke="%23ffffff" stroke-width="15" fill="none" opacity="0.06"/></svg>');
+           /* background-size: 200px 200px;*/
+            /*transform: rotate(195deg); /* optional but looks great */
+            opacity: 1.6; /* let your SVG control the transparency */
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            animation: fadeInDown 0.8s ease 0.2s backwards;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .portfolio-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            transition: height 0.4s ease;
+        }
+/*
+        .portfolio-card.digital::before {
+            background: var(--accent-teal);
+        }
+
+        .portfolio-card.controls::before {
+            background: var(--accent-orange);
+        }
+*/
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .portfolio-card:hover::before {
+            height: 100%;
+            opacity: 0.05;
+        }
+        .divflex{
+            display: flex;
+            gap: 2rem;
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .digital .icon-wrapper {
+            background: var(--accent-teal);
+            color: var(--primary-base);
+        }
+
+        .controls .icon-wrapper {
+            background: var(--accent-orange);
+            color: var(--primary-base);
+        }
+
+        .portfolio-card h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .portfolio-card .subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .highlights {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .highlights li {
+            padding: 0.75rem 0;
+            color: var(--text-dark);
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+        }
+
+        .highlights li i {
+            font-size: 1rem;
+            color: var(--accent-teal);
+        }
+        
+        .digital .highlights li i {
+            color: var(--accent-teal);
+        }
+
+        .controls .highlights li i {
+            color: var(--accent-orange);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            color: white;
+        }
+
+        .digital .btn {
+            background: var(--accent-teal);
+            color: var(--primary-base);
+        }
+
+        .controls .btn {
+            background: var(--accent-orange);
+            color: var(--primary-base);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1.1rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .portfolio-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="profile-pic" src="pics/1660819567370.jfif" alt="Profile Picture">
+            <div>
+                <h1>Rui Fernandes</h1>
+                <p>Select Your Portfolio Focus</p>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <div class="portfolio-card digital" onclick="window.location.href='#digital'">
+                <div class="divflex">
+                    <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                    <h2>Digital Transformation & Analytics</h2>
+                </div>
+                <p class="subtitle">Data Strategy, Business Intelligence & Digital Innovation Leadership</p>
+                
+                <ul class="highlights">
+                    <li><i class="fas fa-check-circle"></i> Award-winning data transformation frameworks</li>
+                    <li><i class="fas fa-check-circle"></i> Business intelligence & analytics strategy</li>
+                    <li><i class="fas fa-check-circle"></i> Data governance & quality management</li>
+                    <li><i class="fas fa-check-circle"></i> Cultural change & stakeholder engagement</li>
+                    <li><i class="fas fa-check-circle"></i> Power BI, Python, API integrations</li>
+                </ul>
+                <div class="divflex">
+                    <a href="digital-portfolio.html" class="btn">View Digital Portfolio →</a>
+                </div>
+                
+            </div>
+
+            <div class="portfolio-card controls" onclick="window.location.href='#controls'">
+                <div class="divflex">
+                    <div class="icon-wrapper"><i class="fas fa-project-diagram"></i></div>
+                    <h2>Project Controls & Performance</h2>
+                </div>
+                <p class="subtitle">Integrated Project Controls, EVM & Programme Management Excellence</p>
+                
+                <ul class="highlights">
+                    <li><i class="fas fa-check-circle"></i> Integrated Project Controls Framework (IPCF)</li>
+                    <li><i class="fas fa-check-circle"></i> Earned Value Management implementation</li>
+                    <li><i class="fas fa-check-circle"></i> Cost control & schedule management</li>
+                    <li><i class="fas fa-check-circle"></i> Performance metrics & forecasting</li>
+                    <li><i class="fas fa-check-circle"></i> Multi-project portfolio oversight</li>
+                </ul>
+                <div class="divflex">
+                    <a href="controls-portfolio.html" class="btn">View Controls Portfolio →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'A') {
+                    const link = this.querySelector('a');
+                    if (link) {
+                        window.location.href = link.href;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
